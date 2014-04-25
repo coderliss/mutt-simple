@@ -1,0 +1,143 @@
+# A basic .muttrc for use with Gmail
+# Change the following six lines to match your Gmail account details
+set ssl_starttls=yes
+set imap_user = "#USERNAME#@gmail.com"
+set imap_pass = "#PASSWORD#"
+set smtp_url = "smtp://#USERNAME#@gmail.com@smtp.gmail.com:587/"
+set smtp_pass = "#PASSWORD#"
+set from = "#USERNAME#@gmail.com"
+set realname = "#REALNAME#"
+
+# Basic config, you can leave this as is
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+
+# address book
+#set alias_file= ~/.mutt/.address.alias
+#set sort_alias= alias
+#set reverse_alias=yes
+#source $alias_file
+
+set query_command = "abook --mutt-query '%s'"
+macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+
+# key binding
+# all binding functions is here http://www.mutt.org/doc/manual/manual-6.html#functions
+# generic
+bind generic,pager \cu half-up
+bind generic,pager \cd half-down
+bind generic,index,pager \cf next-page
+bind generic,index,pager \cb previous-page
+bind generic,pager j next-line
+bind generic,pager k previous-line
+bind generic,pager J next-line
+bind generic,pager K previous-line
+bind generic,pager \cj next-entry
+bind generic,pager \ck previous-entry
+bind generic,pager <DOWN> next-line
+bind generic,pager <UP> previous-line
+
+bind pager G bottom
+bind pager gg top
+bind index G last-entry
+bind index gg first-entry
+bind index j next-undeleted
+bind index k previous-undeleted 
+
+bind index R group-reply
+bind pager,index dd delete-message
+bind pager,index D delete-thread
+#bind index f change-folder
+bind index L imap-fetch-mail
+
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop
+
+bind attach J next-entry
+bind attach K previous-entry
+bind attach j next-entry
+bind attach k previous-entry
+
+bind index \cu noop
+bind index \cd noop
+
+# Gmail-style keyboard shortcuts
+macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
+macro index,pager dd "<enter-command>set trash=\"imaps://imap.googlemail.com/[Gmail].Trash\"\n <delete-message>" "Gmail delete message"
+macro index,pager gl "<change-folder>"
+macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=[Gmail].All Mail<enter>" "Go to all mail"
+macro index,pager gf "<change-folder>=[Gmail].Starred<enter>" "Go to starred messages"
+macro index,pager gd "<change-folder>=[Gmail].Drafts<enter>" "Go to drafts"
+macro index,pager gs "<change-folder>=[Gmail].Sent Mail<enter>" "Go to sent mail"
+macro index,pager gp "<change-folder>=[Gmail].Spam<enter>" "Go to spam mail"
+macro index,pager gt "<change-folder>=[Gmail].Trash<enter>" "Go to trash mail"
+macro index,pager gc "<change-folder>=[Gmail].Important<enter>" "Go to important mail"
+
+# colors
+source `case $TERM in\
+             *256color) echo '~/.mutt/color_schema/vombatidae-mutt/vombatidae.mutt'; break ;;\
+             *)        echo '~/.mutt/color_schema/default'; break ;;\
+        esac`
+
+# Change the following line to a different editor you prefer.
+set editor = "vim"
+
+#
+hdr_order Date From To Cc
+auto_view text/html
+alternative_order text/plain text/html
+
+
+# locale
+set locale="zh_CN"
+set ascii_chars=yes
+set charset="utf-8"
+set send_charset="us-ascii:iso-8859-1:gb2312:utf-8"
+set rfc2047_parameters=yes
+charset-hook ^iso-8859-1$ gb2312
+charset-hook !utf-8 gb2312
+charset-hook ^us-ascii$ gb2312
+
+# normal 
+set edit_headers=yes
+set header=no
+set nomark_old
+set copy=no #gmail already did it
+set smart_wrap
+set nomarkers
+set mime_forward=yes
+set mime_forward_rest=yes
+set pager_index_lines=4
+set pager_context=3
+set nostrict_threads
+set fast_reply
+set postpone=ask-no
+set move=no
+set include
+set sort='threads'
+set auto_tag=yes
+set pager_stop
+set resolve=yes
+set check_new=yes
+set timeout=300
+set sort_aux=date
+set wait_key=yes
+set quit=ask-yes
+set pager_index_lines=6
+
+# score
+score "~N" +4
+score "~s 通知" +2
+score "~s 密码" +3
+score "~D" -5
+score "~O" +1
+score "~s (AD)" -10
+#set sort=score

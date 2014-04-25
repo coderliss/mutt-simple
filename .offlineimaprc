@@ -1,0 +1,26 @@
+[general]
+accounts = myaccount
+ui = Basic
+
+[Account myaccount]
+localrepository = mylocal
+remoterepository = myremote
+autorefresh = 2
+#maxage = 30
+
+[Repository mylocal]
+type = Maildir
+localfolders = ~/.Mail
+
+[Repository myremote]
+type = Gmail
+remoteuser = #USERNAME#@gmail.com
+remotepass = #PASSWORD#
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+#sslcacertfile = /opt/local/etc/openssl/cert.pem
+maxconnections = 2
+readonly = False
+realdelete = no
+idlefolders = ['INBOX', '[Gmail]/Important']
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', 'kernel', 'kernelnewbies']

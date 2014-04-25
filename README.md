@@ -1,2 +1,2 @@
-mutt-simple
+mutt-config
 ===========
