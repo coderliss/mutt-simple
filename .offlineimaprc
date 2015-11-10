@@ -1,6 +1,7 @@
 [general]
 accounts = myaccount
 ui = Basic
+socktimeout = 90
 
 [Account myaccount]
 localrepository = mylocal
