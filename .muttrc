@@ -7,6 +7,7 @@ set smtp_url = "smtp://#USERNAME#@gmail.com@smtp.gmail.com:587/"
 set smtp_pass = "#PASSWORD#"
 set from = "#USERNAME#@gmail.com"
 set realname = "#REALNAME#"
+set smtp_authenticators = "gssapi:login"
 
 # Basic config, you can leave this as is
 set folder = "imaps://imap.gmail.com:993"
